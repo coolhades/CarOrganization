@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/background"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/empty_ly"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/content"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="暂无名师"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/textColorHint"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/teacher_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+</LinearLayout>

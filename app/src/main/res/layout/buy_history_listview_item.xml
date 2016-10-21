@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/item_ry"
+    tools:context="cn.automooc.com.ui.SettingActivity">
+    
+    
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/text"/>
+    
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:maxLength="8"
+        android:ellipsize="end"
+        android:textColor="#4E4E4E"
+        android:singleLine="true"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/item_img"
+        android:text="福建奔驰体验课程"/>
+
+    <TextView
+        android:id="@+id/ispaid"
+        android:text="未支付"
+        android:textColor="@color/textColorHint"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="#AFAFAF"
+        android:paddingLeft="10dp"
+        android:layout_below="@id/item_title"
+        android:layout_toRightOf="@id/item_img"
+        android:text="2016-05-08"/>
+
+    <TextView
+        android:id="@+id/money"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/item_content"
+        android:layout_toRightOf="@+id/item_img"
+        android:layout_marginTop="8dp"
+        android:text="￥: "
+        android:textColor="@color/momeyColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/time_tv"
+        android:layout_below="@+id/item_content"
+        android:text="2016-9-10"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/textColor"
+        android:layout_alignParentRight="true"
+        android:maxLength="10"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/head_layout"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/course_title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:text="名称"
+            android:textColor="@color/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:background="@color/background"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/teacher_name"
+                android:layout_marginLeft="10dp"
+                android:padding="8dp"
+                android:text="名字"
+                android:textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/price_tv"
+                android:padding="8dp"
+                android:text="￥：xxx"
+                android:textColor="@color/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--支付方式选择-->
+    <ListView
+        android:text="支付"
+        android:background="@color/content"
+        android:layout_marginTop="8dp"
+        android:choiceMode="singleChoice"
+        android:id="@+id/paytypeshow_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/go_pay"
+        android:text="确认购买"
+        android:textColor="#ffffff"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="@drawable/course_text_choosed_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+
+</LinearLayout>

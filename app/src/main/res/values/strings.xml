@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">汽车学堂</string>
+    <string name="_210">提问(210)</string>
+    <string name="introduce">简介</string>
+</resources>
