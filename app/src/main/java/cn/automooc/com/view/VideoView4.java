@@ -31,7 +31,6 @@ import cn.automooc.com.bean.BaiFen;
 import cn.automooc.com.bean.ClassResultDetail;
 import cn.automooc.com.bean.MyExam;
 import cn.automooc.com.bean.ResultMyExam;
-import cn.automooc.com.bean.ResultPersonal;
 import cn.automooc.com.bean.ResultStudy;
 import cn.automooc.com.bean.ZhangBean;
 import cn.automooc.com.utils.ConstantSet;
@@ -344,49 +343,49 @@ public class VideoView4 {
     }
 
     //此处显示的考试次数是所有考试的
-    public void getkaoshiData() {
-        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/getcount?", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                // TODO Auto-generated method stub
-
-                // showShortToast("me  " + response);
-                if (response.length() > 80) {
-
-                    Gson gson = new Gson();
-
-                    ResultPersonal result = gson.fromJson(response, new TypeToken<ResultPersonal>() {
-                    }.getType());
-
-
-                    kaoshi_num.setText("考试"+result.getData().getNum_exam()+"次");
-
-
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-                Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                // TODO Auto-generated method stub
-                Map<String, String> map = new HashMap<String, String>();
-                if (ConstantSet.user != null) {
-                    map.put("user_id", ConstantSet.user.getUid());
-                }
-                return map;
-            }
-        };
-
-        MyApplication.getRq().add(rq);
-    }
+//    public void getkaoshiData() {
+//        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/getcount?", new Response.Listener<String>() {
+//
+//            @Override
+//            public void onResponse(String response) {
+//                // TODO Auto-generated method stub
+//
+//                // showShortToast("me  " + response);
+//                if (response.length() > 80) {
+//
+//                    Gson gson = new Gson();
+//
+//                    ResultPersonal result = gson.fromJson(response, new TypeToken<ResultPersonal>() {
+//                    }.getType());
+//
+//
+//                    kaoshi_num.setText("考试"+result.getData().getNum_exam()+"次");
+//
+//
+//
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // TODO Auto-generated method stub
+//                Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                // TODO Auto-generated method stub
+//                Map<String, String> map = new HashMap<String, String>();
+//                if (ConstantSet.user != null) {
+//                    map.put("user_id", ConstantSet.user.getUid());
+//                }
+//                return map;
+//            }
+//        };
+//
+//        MyApplication.getRq().add(rq);
+//    }
 
 
 

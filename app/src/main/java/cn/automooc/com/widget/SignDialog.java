@@ -113,7 +113,7 @@ public class SignDialog extends Dialog {
                 
                 System.out.print("response  "+response+"    "+(new Date()).getTime()+""+response.length());
                 Log.i("TAGTAG", response);
-                if(response.length()>20) {
+                try {
 
 
                     Gson gson = new Gson();
@@ -144,6 +144,8 @@ public class SignDialog extends Dialog {
                     {
                         ConstantSet.sign = false;
                     }*/
+
+                }catch (Exception e){
 
                 }
             }

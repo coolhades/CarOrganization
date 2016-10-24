@@ -95,7 +95,7 @@ public class JPushToDuihuaDialog extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
-                if (response.length() > 80) {
+                try {
 
                     //
                     Log.i("TAGTAG", "会话列表"+response);
@@ -103,17 +103,20 @@ public class JPushToDuihuaDialog extends BaseActivity {
 
                     QuestionListBean result = gson.fromJson(response, new TypeToken<QuestionListBean>() {
                     }.getType());
+                    if (result.getStatus() == 1) {
+                        lists = result.getData();
+                        adapter = new DuihuaListViewAdapter(lists, JPushToDuihuaDialog.this);
 
-                    lists = result.getData();
-                    adapter = new DuihuaListViewAdapter(lists, JPushToDuihuaDialog.this);
-
-                    listView.setAdapter(adapter);
+                        listView.setAdapter(adapter);
+                    }
 
                    /* LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) listView.getLayoutParams();
 
                     params.height = (int) (lists.size() * ((120 *context.getResources().getDisplayMetrics().density) + 0.5f));
                     listView.setLayoutParams(params);*/
 
+
+                }catch (Exception e){
 
                 }
             }

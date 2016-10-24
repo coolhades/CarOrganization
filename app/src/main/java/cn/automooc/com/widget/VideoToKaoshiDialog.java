@@ -144,18 +144,19 @@ public class VideoToKaoshiDialog extends Dialog {
                 System.out.print("response  "+response+"    "+response.length());
                 Log.i("TAGTAG考试列表", response);
                 // showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     ResultMyExam resultUser = gson.fromJson(response, new TypeToken<ResultMyExam>() {
                     }.getType());
 
+                    if (resultUser.getStatus().equalsIgnoreCase("1")) {
+                        lists = resultUser.getData();
+                        adapter = new MyExamineListViewAdapter(resultUser.getData(), mcontext);
 
-                    lists=resultUser.getData();
-                    adapter=new MyExamineListViewAdapter(resultUser.getData(),mcontext);
+                        myExamineListView.setAdapter(adapter);
 
-                    myExamineListView.setAdapter(adapter);
-
+                    }
 
 //                    GongGaoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                        @Override
@@ -177,6 +178,8 @@ public class VideoToKaoshiDialog extends Dialog {
 //
 //
 //                    }
+                }catch (Exception e){
+
                 }
 
             }

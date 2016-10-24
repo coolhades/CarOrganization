@@ -481,12 +481,14 @@ public class SharedSdkUtils {
 			public void onResponse(String response) {
 				// TODO Auto-generated method stub
 				Log.i("AddCoin",response);
-				if (response.length() > 30) {
+				try {
 
 					Log.i("TAG-Share", response);
 //					Gson gson=new Gson();
 //					ResultVideo resultVideo = gson.fromJson(response, new TypeToken<ResultVideo>() {
 //					}.getType());
+
+				}catch (Exception e){
 
 				}
 

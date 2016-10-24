@@ -81,23 +81,26 @@ public class ListOfCommentView {
             @Override
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
-                if (response.length() > 80) {
+                try {
 
                     Gson gson = new Gson();
 
                     ResultQuestion result = gson.fromJson(response, new TypeToken<ResultQuestion>() {
                     }.getType());
+                    if (result.getStatus().equalsIgnoreCase("1")) {
+                        lists = result.getData();
+                        adapter = new FirstVideoView3ListViewAdapter(lists, mContext);
 
-                    lists=result.getData();
-                    adapter=new FirstVideoView3ListViewAdapter(lists,mContext);
+                        listView.setAdapter(adapter);
 
-                    listView.setAdapter(adapter);
-
+                    }
                    /* LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) listView.getLayoutParams();
 
                     params.height=(int)(lists.size()*((120*mContext.getResources().getDisplayMetrics().density)+0.5f));
                     listView.setLayoutParams(params);*/
 
+
+                }catch (Exception e){
 
                 }
             }

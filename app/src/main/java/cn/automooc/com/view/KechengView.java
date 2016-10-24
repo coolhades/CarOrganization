@@ -81,17 +81,19 @@ public class KechengView {
 
 //                System.out.print("response  " + response + "    " + response.length());
                 Log.i("ID_response", "ID_response="+response);
-                if (response.length() > 100) {
+                try {
 
                     Gson gson=new Gson();
 
                     ResultLessonKc resultLessonKc = gson.fromJson(response, new TypeToken<ResultLessonKc>() {
                     }.getType());
+                    if (resultLessonKc.getStatus().equalsIgnoreCase("1")) {
+                        list1 = resultLessonKc.getData().getList();
+                        adapter1 = new KechengListAdapter(list1, mContext);
+                        listView1.setAdapter(adapter1);
+                    }
 
-                    list1=resultLessonKc.getData().getList();
-                    adapter1=new KechengListAdapter(list1,mContext);
-                    listView1.setAdapter(adapter1);
-                    
+                }catch (Exception e){
 
                 }
             }

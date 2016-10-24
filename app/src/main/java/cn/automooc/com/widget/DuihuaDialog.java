@@ -108,7 +108,7 @@ public class DuihuaDialog extends Dialog {
             @Override
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
-                if (response.length() > 80) {
+                try {
 
                     //
                     Log.i("TAGTAG", "会话列表"+response);
@@ -117,16 +117,20 @@ public class DuihuaDialog extends Dialog {
                     QuestionListBean result = gson.fromJson(response, new TypeToken<QuestionListBean>() {
                     }.getType());
 
-                    lists = result.getData();
-                    adapter = new DuihuaListViewAdapter(lists,context);
+                    if (result.getStatus() == 1) {
+                        lists = result.getData();
+                        adapter = new DuihuaListViewAdapter(lists, context);
 
-                    listView.setAdapter(adapter);
+                        listView.setAdapter(adapter);
+                    }
 
                    /* LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) listView.getLayoutParams();
 
                     params.height = (int) (lists.size() * ((120 *context.getResources().getDisplayMetrics().density) + 0.5f));
                     listView.setLayoutParams(params);*/
 
+
+                }catch (Exception e){
 
                 }
             }

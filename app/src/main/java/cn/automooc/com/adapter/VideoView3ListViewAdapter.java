@@ -183,7 +183,7 @@ public class VideoView3ListViewAdapter extends BaseAdapter {
 
                 System.out.print("response  " + response + "    " + response.length());
                 //showShortToast(response);
-                if (response.length() > 20) {
+                try {
 					
                     Gson gson = new Gson();
                     Sign resultUser = gson.fromJson(response, new TypeToken<Sign>() {
@@ -198,6 +198,8 @@ public class VideoView3ListViewAdapter extends BaseAdapter {
                     else{
                         Toast.makeText(mContext, "不能重复点赞", Toast.LENGTH_SHORT).show();
                     }
+                }catch (Exception e){
+
                 }
             }
         }, new Response.ErrorListener() {
@@ -240,7 +242,7 @@ public class VideoView3ListViewAdapter extends BaseAdapter {
 
                 System.out.print("response  " + response + "    " + response.length());
                 //showShortToast(response);
-                if (response.length() > 20) {   
+                try {
 
 
                     Gson gson = new Gson();
@@ -257,6 +259,8 @@ public class VideoView3ListViewAdapter extends BaseAdapter {
                         Toast.makeText(mContext, "不能重复踩", Toast.LENGTH_SHORT).show();
                     }
 
+
+                }catch (Exception e){
 
                 }
             }

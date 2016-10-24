@@ -144,7 +144,7 @@ public class TiWenDialog extends Dialog {
                 // TODO Auto-generated method stub
                 
                // Toast.makeText(context,response,Toast.LENGTH_LONG).show();
-                if (response.length() > 20) {
+                try {
 
                     Gson gson = new Gson();
 
@@ -159,6 +159,8 @@ public class TiWenDialog extends Dialog {
                         handler.sendMessage(msg);
                         Toast.makeText(context,"提问成功",Toast.LENGTH_SHORT).show();
                     }
+
+                }catch (Exception e){
 
                 }
             }

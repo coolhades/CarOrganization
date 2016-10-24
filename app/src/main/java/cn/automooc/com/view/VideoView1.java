@@ -200,61 +200,64 @@ public class VideoView1 {
 
               //  Toast.makeText(mContext,response+"",Toast.LENGTH_SHORT).show();
                 Log.i("TAG-VideoInfo",""+response);
-                if (response.length() > 50) {
+                try {
 
                     Gson gson=new Gson();
 
                     resultVideo = gson.fromJson(response, new TypeToken<ResultVideo>() {
                     }.getType());
-
-                    String s = resultVideo.getData().getWatch_time();
-                    String p;
-                    Message msg=Message.obtain();
-                    msg.arg1=1001;
-                    if (s.contains(".")) {
-                        String[] sArray = s.split("\\.");
-                        p = sArray[0];
-                        msg.what = Integer.parseInt(p);
-                    }else {
-                        msg.what=Integer.parseInt(resultVideo.getData().getWatch_time());
-                    }
-                    if((resultVideo.getData().getExam()!=null)&&(resultVideo.getData().getExam().size()>0)) {
-                        ConstantSet.exam_name.clear();
-                        ConstantSet.exam_url.clear();
-                        ConstantSet.can_close.clear();
-
-                        int index = resultVideo.getData().getExam().size();
-                        msg.arg2 = index;//考试次数传给video
-
-                        //保存考试 链接 等信息
-                        for (int i = 0;i<index;i++){
-//                            msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(i).getVideo_pos());
-                            ConstantSet.exam_name.add(resultVideo.getData().getExam().get(i).getExam_name());
-                            ConstantSet.exam_url.add(resultVideo.getData().getExam().get(i).getExam_url());
-                            ConstantSet.can_close.add(resultVideo.getData().getExam().get(i).getCan_close());
-                            ConstantSet.exam_time.add(resultVideo.getData().getExam().get(i).getVideo_pos());//考试时间点
+                    if (resultVideo.getStatus().equalsIgnoreCase("1")) {
+                        String s = resultVideo.getData().getWatch_time();
+                        String p;
+                        Message msg = Message.obtain();
+                        msg.arg1 = 1001;
+                        if (s.contains(".")) {
+                            String[] sArray = s.split("\\.");
+                            p = sArray[0];
+                            msg.what = Integer.parseInt(p);
+                        } else {
+                            msg.what = Integer.parseInt(resultVideo.getData().getWatch_time());
                         }
+                        if ((resultVideo.getData().getExam() != null) && (resultVideo.getData().getExam().size() > 0)) {
+                            ConstantSet.exam_name.clear();
+                            ConstantSet.exam_url.clear();
+                            ConstantSet.can_close.clear();
+
+                            int index = resultVideo.getData().getExam().size();
+                            msg.arg2 = index;//考试次数传给video
+
+                            //保存考试 链接 等信息
+                            for (int i = 0; i < index; i++) {
+//                            msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(i).getVideo_pos());
+                                ConstantSet.exam_name.add(resultVideo.getData().getExam().get(i).getExam_name());
+                                ConstantSet.exam_url.add(resultVideo.getData().getExam().get(i).getExam_url());
+                                ConstantSet.can_close.add(resultVideo.getData().getExam().get(i).getCan_close());
+                                ConstantSet.exam_time.add(resultVideo.getData().getExam().get(i).getVideo_pos());//考试时间点
+                            }
 
 //                        msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(0).getVideo_pos());
 //                        ConstantSet.exam_name=resultVideo.getData().getExam().get(0).getExam_name();
 //                        ConstantSet.exam_url=resultVideo.getData().getExam().get(0).getExam_url();
 //                        ConstantSet.can_close=resultVideo.getData().getExam().get(0).getCan_close();
-                    }
-                    msg.obj=resultVideo.getData().getVideo_title();
-                    handler.sendMessage(msg);
+                        }
+                        msg.obj = resultVideo.getData().getVideo_title();
+                        handler.sendMessage(msg);
 
-                    if(resultVideo.getData().getStore_value()!=null&&(!resultVideo.getData().getStore_value().equals(""))) {
-                        ConstantSet.section_uid=childLists.get(groupPosition).get(childPosition).getSection_uid();
+                        if (resultVideo.getData().getStore_value() != null && (!resultVideo.getData().getStore_value().equals(""))) {
+                            ConstantSet.section_uid = childLists.get(groupPosition).get(childPosition).getSection_uid();
 //                        reSetPlayer(player, resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
-                        //设置接口回调
-                        onVideoDataListener.reSetPlayerData(resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
-                        parentVideo_index = groupPosition;
-                        childVideo_index = childPosition;
+                            //设置接口回调
+                            onVideoDataListener.reSetPlayerData(resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
+                            parentVideo_index = groupPosition;
+                            childVideo_index = childPosition;
 
-                    }else
-                    {
-                        Toast.makeText(mContext,"视频不存在",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, "视频不存在", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
+                }catch (Exception e){
 
                 }
             }
@@ -300,62 +303,61 @@ public class VideoView1 {
                 Log.d("parent_video",response);
                 try {
 
-                    if (response.length() > 30) {
-
                         Gson gson=new Gson();
                         ResultVideo resultVideo = gson.fromJson(response, new TypeToken<ResultVideo>() {
                         }.getType());
-                        Message msg=Message.obtain();
-                        msg.arg1=1001;
-                        String s = resultVideo.getData().getWatch_time();
-                        String p;
-                        if (s.contains(".")) {
-                            String[] sArray = s.split("\\.");
-                            p = sArray[0];
-                            msg.what = Integer.parseInt(p);
-                        }else {
-                            msg.what=Integer.parseInt(resultVideo.getData().getWatch_time());
-                        }
-                        //msg.what 目前观看时间
-                        if((resultVideo.getData().getExam()!=null)&&(resultVideo.getData().getExam().size()>0)) {
-                            ConstantSet.exam_name.clear();
-                            ConstantSet.exam_url.clear();
-                            ConstantSet.can_close.clear();
+                        if (resultVideo.getStatus().equalsIgnoreCase("1")) {
 
-                            int index = resultVideo.getData().getExam().size();
-                            msg.arg2 = index;//考试次数传给video
-
-                            //保存考试 链接 等信息
-                            for (int i = 0;i<index;i++){
-//                            msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(i).getVideo_pos());
-                                ConstantSet.exam_name.add(resultVideo.getData().getExam().get(i).getExam_name());
-                                ConstantSet.exam_url.add(resultVideo.getData().getExam().get(i).getExam_url());
-                                ConstantSet.can_close.add(resultVideo.getData().getExam().get(i).getCan_close());
-                                ConstantSet.exam_time.add(resultVideo.getData().getExam().get(i).getVideo_pos());//考试时间点
+                            Message msg = Message.obtain();
+                            msg.arg1 = 1001;
+                            String s = resultVideo.getData().getWatch_time();
+                            String p;
+                            if (s.contains(".")) {
+                                String[] sArray = s.split("\\.");
+                                p = sArray[0];
+                                msg.what = Integer.parseInt(p);
+                            } else {
+                                msg.what = Integer.parseInt(resultVideo.getData().getWatch_time());
                             }
-                            //旧版只支持1此考试
+                            //msg.what 目前观看时间
+                            if ((resultVideo.getData().getExam() != null) && (resultVideo.getData().getExam().size() > 0)) {
+                                ConstantSet.exam_name.clear();
+                                ConstantSet.exam_url.clear();
+                                ConstantSet.can_close.clear();
+
+                                int index = resultVideo.getData().getExam().size();
+                                msg.arg2 = index;//考试次数传给video
+
+                                //保存考试 链接 等信息
+                                for (int i = 0; i < index; i++) {
+//                            msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(i).getVideo_pos());
+                                    ConstantSet.exam_name.add(resultVideo.getData().getExam().get(i).getExam_name());
+                                    ConstantSet.exam_url.add(resultVideo.getData().getExam().get(i).getExam_url());
+                                    ConstantSet.can_close.add(resultVideo.getData().getExam().get(i).getCan_close());
+                                    ConstantSet.exam_time.add(resultVideo.getData().getExam().get(i).getVideo_pos());//考试时间点
+                                }
+                                //旧版只支持1此考试
 //                        msg.arg2 = Integer.parseInt(resultVideo.getData().getExam().get(0).getVideo_pos());
 //                        ConstantSet.exam_name=resultVideo.getData().getExam().get(0).getExam_name();
 //                        ConstantSet.exam_url=resultVideo.getData().getExam().get(0).getExam_url();
 //                        ConstantSet.can_close=resultVideo.getData().getExam().get(0).getCan_close();
 
-                        }
-                        msg.obj=resultVideo.getData().getVideo_title();
-                        handler.sendMessage(msg);
+                            }
+                            msg.obj = resultVideo.getData().getVideo_title();
+                            handler.sendMessage(msg);
 
-                        if(resultVideo.getData().getStore_value()!=null&&(!resultVideo.getData().getStore_value().equals(""))) {
-                            ConstantSet.section_uid = parentLists.get(i).getSection_uid();
+                            if (resultVideo.getData().getStore_value() != null && (!resultVideo.getData().getStore_value().equals(""))) {
+                                ConstantSet.section_uid = parentLists.get(i).getSection_uid();
 //                        reSetPlayer(player, resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
-                            onVideoDataListener.reSetPlayerData(resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
-                            parentVideo_index = i;
-                            Log.d("TAG-ParentIndex", "第"+parentVideo_index+"章"+"     总共"+parentLists.size()+"章");
+                                onVideoDataListener.reSetPlayerData(resultVideo.getData().getStore_value(), resultVideo.getData().getStore_type(), resultVideo.getData().getStore_config());
+                                parentVideo_index = i;
+                                Log.d("TAG-ParentIndex", "第" + parentVideo_index + "章" + "     总共" + parentLists.size() + "章");
 
-                        }else
-                        {
-                            Toast.makeText(mContext,"视频不存在",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(mContext, "视频不存在", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-
-                    }
 
                 }catch (Exception e){
 

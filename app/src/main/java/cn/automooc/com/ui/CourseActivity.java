@@ -314,42 +314,44 @@ public class CourseActivity extends BaseActivity {
                 // TODO Auto-generated method stub
                 Log.i("impwer_id  ",response);
                // showLongToast(response);
-                if (response.length() > 350) {
+                try {
 
                     Gson gson=new Gson();
 
                     resultLessonKc = gson.fromJson(response, new TypeToken<ResultDetail>() {
                     }.getType());
+                    if (resultLessonKc.getStatus().equalsIgnoreCase("1")) {
+                        videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
+                        ConstantSet.impower_id = resultLessonKc.getData().getInfo().getImpower_id();
+                        ConstantSet.home_course_id = resultLessonKc.getData().getInfo().getCourse_id();
+                        lists.add(new CourseIntroduceView(CourseActivity.this, resultLessonKc.getData().getInfo()).getView());
 
-                    videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
-                    ConstantSet.impower_id = resultLessonKc.getData().getInfo().getImpower_id();
-                    ConstantSet.home_course_id = resultLessonKc.getData().getInfo().getCourse_id();
-                    lists.add(new CourseIntroduceView(CourseActivity.this,resultLessonKc.getData().getInfo()).getView());
+                        lists.add(new ListOfCourseView(CourseActivity.this, resultLessonKc.getData().getSection()).getView());
 
-                    lists.add(new ListOfCourseView(CourseActivity.this,resultLessonKc.getData().getSection()).getView());
-
-                    if(ConstantSet.confiMap!=null) {
-                        if (ConstantSet.confiMap.get("App.Switch.Course.Evaluate.Show").equals("0")) {
-                            lists.add(new ListOfCommentView(CourseActivity.this, resultLessonKc.getData().getInfo()).getView());
+                        if (ConstantSet.confiMap != null) {
+                            if (ConstantSet.confiMap.get("App.Switch.Course.Evaluate.Show").equals("0")) {
+                                lists.add(new ListOfCommentView(CourseActivity.this, resultLessonKc.getData().getInfo()).getView());
+                            }
                         }
-                    }
-                    if(adapter==null)
-                    {
+                        if (adapter == null) {
 //                        dialog.colseDialog();
-                    }
-                    
-                    adapter=new VideoViewPagerAdapterFirst(lists,CourseActivity.this);
-                    viewPager.setAdapter(adapter);
+                        }
+
+                        adapter = new VideoViewPagerAdapterFirst(lists, CourseActivity.this);
+                        viewPager.setAdapter(adapter);
 
 
-                    LoadImgUtils.setImage(CourseActivity.this,resultLessonKc.getData().getInfo().getCourse_album(),videoImg);
-                    
-                    tiwenBt.setText("提问（"+resultLessonKc.getData().getNum_comment()+")");
+                        LoadImgUtils.setImage(CourseActivity.this, resultLessonKc.getData().getInfo().getCourse_album(), videoImg);
+
+                        tiwenBt.setText("提问（" + resultLessonKc.getData().getNum_comment() + ")");
 
 //
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                    }
+                }catch (Exception e){
 
                 }
             }
@@ -393,7 +395,7 @@ public class CourseActivity extends BaseActivity {
                 // TODO Auto-generated method stub
                 Log.i("Guanzhu  ", response);
                 //showShortToast(response);
-                if (response.length() > 10) {
+                try {
                     Gson gson = new Gson();
                     WatchOnBean resultLessonKc = gson.fromJson(response, WatchOnBean.class);
                     if (resultLessonKc.getStatus() == 1) {
@@ -403,6 +405,8 @@ public class CourseActivity extends BaseActivity {
                     }else {
 //                        Toast.makeText(CourseActivity.this,resultLessonKc.getMessage(),Toast.LENGTH_SHORT).show();
                     }
+                }catch (Exception e){
+
                 }
             }
         }, new Response.ErrorListener() {
@@ -498,7 +502,7 @@ public class CourseActivity extends BaseActivity {
 
                 Log.d("IsCollect  ", response);
                 // showShortToast(response);
-                if (response.length() > 10) {
+                try {
 
                     Gson gson = new Gson();
 
@@ -513,6 +517,8 @@ public class CourseActivity extends BaseActivity {
                         collectImg.setImageResource(R.mipmap.collect_img);
 
                     }
+
+                }catch (Exception e){
 
                 }
             }

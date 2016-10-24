@@ -1248,27 +1248,30 @@ public class VideoActivity extends BaseActivity implements SurfaceHolder.Callbac
 
                 Log.d("Resopnse  ", response);
                 // showShortToast(response);
-                if (response.length() > 10) {
+                try {
 
                     Gson gson = new Gson();
 
                     Sign resultLessonKc = gson.fromJson(response, new TypeToken<Sign>() {
                     }.getType());
 
+                    if (resultLessonKc.getStatus() == 1) {
+                        if (resultLessonKc.getMessage().equals("未关注该课程")) {
+                            collectImg.setImageResource(R.mipmap.collect_normal);
+                            isFollow = false;
 
-                    if (resultLessonKc.getMessage().equals("未关注该课程")) {
-                        collectImg.setImageResource(R.mipmap.collect_normal);
-                        isFollow = false;
-
-                    } else {
-                        collectImg.setImageResource(R.mipmap.collect_img);
-                        isFollow = true;
+                        } else {
+                            collectImg.setImageResource(R.mipmap.collect_img);
+                            isFollow = true;
+                        }
                     }
 
 //
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }
@@ -1305,20 +1308,23 @@ public class VideoActivity extends BaseActivity implements SurfaceHolder.Callbac
 
                 Log.i("Resopnse  ", response);
                 //showShortToast(response);
-                if (response.length() > 10) {
+                try {
 
                     Gson gson = new Gson();
 
                     WatchOnBean resultLessonKc = gson.fromJson(response, WatchOnBean.class);
+                    if (resultLessonKc.getStatus() == 1) {
+                        collectImg.setImageResource(R.mipmap.collect_img);
+                        isFollow = true;
 
-                    collectImg.setImageResource(R.mipmap.collect_img);
-                    isFollow = true;
+                        Toast.makeText(VideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(VideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
-
+                    }
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }
@@ -1361,22 +1367,26 @@ public class VideoActivity extends BaseActivity implements SurfaceHolder.Callbac
 
                 Log.d("Resopnse  ", response);
                 // showShortToast(response);
-                if (response.length() > 30) {
+                try {
 
                     Gson gson = new Gson();
 
 //                    Sign resultLessonKc = gson.fromJson(response, new TypeToken<Sign>() {
 //                    }.getType());
                     WatchOnBean resultLessonKc = gson.fromJson(response, WatchOnBean.class);
-                    isFollow = false;
+                    if (resultLessonKc.getStatus() == 1) {
+                        isFollow = false;
 
-                    collectImg.setImageResource(R.mipmap.collect_normal);
+                        collectImg.setImageResource(R.mipmap.collect_normal);
 
-                    Toast.makeText(VideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(VideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
 //
+                    }
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }
@@ -1418,7 +1428,7 @@ public class VideoActivity extends BaseActivity implements SurfaceHolder.Callbac
 
                 Log.d("Resopnse  ", response);
                 // showShortToast(response);
-                if (response.length() > 30) {
+                try {
 
                     Gson gson = new Gson();
 
@@ -1434,6 +1444,8 @@ public class VideoActivity extends BaseActivity implements SurfaceHolder.Callbac
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }

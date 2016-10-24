@@ -1041,49 +1041,51 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
                 Log.i("Video_info", response);
 
                 //showShortToast(response);
-                if (response.length() > 350) {
+                try {
 
                     Gson gson = new Gson();
 
                     resultLessonKc = gson.fromJson(response, new TypeToken<ResultDetail>() {
                     }.getType());
-
+                    if (resultLessonKc.getStatus().equalsIgnoreCase("1")) {
 //                    videoView1 = new VideoView1(QuestionToVideoActivity.this, resultLessonKc.getData().getSection(), player, handler);
-                    lists.add(videoView1.getView());
-                    lists.add(new VideoView2(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
+                        lists.add(videoView1.getView());
+                        lists.add(new VideoView2(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
 //                    lists.add(new VideoView3(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
 
-                    videoView4 = new VideoView4(QuestionToVideoActivity.this, handler);
-                    lists.add(videoView4.getView());
+                        videoView4 = new VideoView4(QuestionToVideoActivity.this, handler);
+                        lists.add(videoView4.getView());
 
 
-                    adapter = new VideoViewPagerAdapter(lists, QuestionToVideoActivity.this);
-                    viewPager.setAdapter(adapter);
-                    //设置好adapter后才能设置Item
-                    jumpToTiWen();
+                        adapter = new VideoViewPagerAdapter(lists, QuestionToVideoActivity.this);
+                        viewPager.setAdapter(adapter);
+                        //设置好adapter后才能设置Item
+                        jumpToTiWen();
 
-                    videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
-                    LoadImgUtils.setImage(QuestionToVideoActivity.this,resultLessonKc.getData().getInfo().getCourse_album(),videoImg);
-                    //tiwenBt.setText("提问（"+resultLessonKc.getData().getNum_comment()+")");
+                        videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
+                        LoadImgUtils.setImage(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo().getCourse_album(), videoImg);
+                        //tiwenBt.setText("提问（"+resultLessonKc.getData().getNum_comment()+")");
 
 //                    ConstantSet.impower_id=resultLessonKc.getData().getInfo().getImpower_id();
-                    ConstantSet.class_id = resultLessonKc.getData().getInfo().getClass_id(); //我的考试页面根据class_id获取考试信息
-                    if((resultLessonKc.getData().getInfo()).getIs_follow().equals("0"))
-                    {
-                        collectImg.setImageResource(R.mipmap.collect_normal);
-                        isFollow=false;
-                    }
-                    else{
-                        collectImg.setImageResource(R.mipmap.collect_img);
-                        isFollow=true;
-                    }
+                        ConstantSet.class_id = resultLessonKc.getData().getInfo().getClass_id(); //我的考试页面根据class_id获取考试信息
+                        if ((resultLessonKc.getData().getInfo()).getIs_follow().equals("0")) {
+                            collectImg.setImageResource(R.mipmap.collect_normal);
+                            isFollow = false;
+                        } else {
+                            collectImg.setImageResource(R.mipmap.collect_img);
+                            isFollow = true;
+                        }
 //
 //                    ConstantSet.class_id=resultLessonKc.getData().getInfo().getClass_id();
 
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
-                    getClassStudyData(videoView4,resultLessonKc.getData().getInfo().getClass_id());
+                        getClassStudyData(videoView4, resultLessonKc.getData().getInfo().getClass_id());
+
+                    }
+                }catch (Exception e){
+
                 }
             }
         }, new Response.ErrorListener() {
@@ -1126,44 +1128,46 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
                 Log.i("Video_info", response);
 
                 //showShortToast(response);
-                if (response.length() > 350) {
+                try {
 
                     Gson gson = new Gson();
 
                     resultLessonKc = gson.fromJson(response, new TypeToken<ResultDetail>() {
                     }.getType());
+                    if (resultLessonKc.getStatus().equalsIgnoreCase("1")) {
 
 //                    videoView1 = new VideoView1(QuestionToVideoActivity.this, resultLessonKc.getData().getSection(), player, handler);
-                    lists.add(videoView1.getView());
-                    lists.add(new VideoView2(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
+                        lists.add(videoView1.getView());
+                        lists.add(new VideoView2(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
 //                    lists.add(new VideoView3(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo()).getView());
-                    lists.add(new VideoView4(QuestionToVideoActivity.this, handler).getView());
+                        lists.add(new VideoView4(QuestionToVideoActivity.this, handler).getView());
 
-                    adapter = new VideoViewPagerAdapter(lists, QuestionToVideoActivity.this);
-                    viewPager.setAdapter(adapter);
+                        adapter = new VideoViewPagerAdapter(lists, QuestionToVideoActivity.this);
+                        viewPager.setAdapter(adapter);
 
 
-                    videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
-                    LoadImgUtils.setImage(QuestionToVideoActivity.this,resultLessonKc.getData().getInfo().getCourse_album(),videoImg);
-                    //tiwenBt.setText("提问（"+resultLessonKc.getData().getNum_comment()+")");
+                        videoTitle.setText(resultLessonKc.getData().getInfo().getCourse_name());
+                        LoadImgUtils.setImage(QuestionToVideoActivity.this, resultLessonKc.getData().getInfo().getCourse_album(), videoImg);
+                        //tiwenBt.setText("提问（"+resultLessonKc.getData().getNum_comment()+")");
 
-                    ConstantSet.impower_id=resultLessonKc.getData().getInfo().getImpower_id();
-                    
-                    if((resultLessonKc.getData().getInfo()).getIs_follow().equals("0"))
-                    {
-                        collectImg.setImageResource(R.mipmap.collect_normal);
-                        isFollow=false;
-                    }
-                   else{
-                        collectImg.setImageResource(R.mipmap.collect_img);
-                        isFollow=true;
-                    }
+                        ConstantSet.impower_id = resultLessonKc.getData().getInfo().getImpower_id();
+
+                        if ((resultLessonKc.getData().getInfo()).getIs_follow().equals("0")) {
+                            collectImg.setImageResource(R.mipmap.collect_normal);
+                            isFollow = false;
+                        } else {
+                            collectImg.setImageResource(R.mipmap.collect_img);
+                            isFollow = true;
+                        }
 //
-                    ConstantSet.class_id=resultLessonKc.getData().getInfo().getClass_id();
-                    
+                        ConstantSet.class_id = resultLessonKc.getData().getInfo().getClass_id();
+
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                    }
+                }catch (Exception e){
 
                 }
             }
@@ -1200,61 +1204,61 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
     }
 
 
-    public void isCollect() {
-        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/isfollow?", new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                // TODO Auto-generated method stub
-
-                Log.d("Resopnse  ", response);
-               // showShortToast(response);
-                if (response.length() > 10) {
-
-                    Gson gson = new Gson();
-
-                    Sign resultLessonKc = gson.fromJson(response, new TypeToken<Sign>() {
-                    }.getType());
-
-
-                    if (resultLessonKc.getMessage().equals("未关注该课程")) {
-                        collectImg.setImageResource(R.mipmap.collect_normal);
-                        isFollow = false;
-
-                    } else {
-                        collectImg.setImageResource(R.mipmap.collect_img);
-                        isFollow = true;
-                    }
-
+//    public void isCollect() {
+//        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/isfollow?", new Response.Listener<String>() {
 //
-//                    list1=resultLessonKc.getData().getList();
-//                    adapter1=new KechengListAdapter(list1,getActivity());
-//                    listView1.setAdapter(adapter1);
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-                Toast.makeText(QuestionToVideoActivity.this, "网络请求失败1", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                // TODO Auto-generated method stub
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("course_id", resultLessonKc.getData().getInfo().getImpower_id());//后期改成course_id
-                if (ConstantSet.user != null) {
-                    map.put("user_id", ConstantSet.user.getUid());
-                }
-                return map;
-            }
-        };
-
-        MyApplication.getRq().add(rq);
-    }
+//            @Override
+//            public void onResponse(String response) {
+//                // TODO Auto-generated method stub
+//
+//                Log.d("Resopnse  ", response);
+//               // showShortToast(response);
+//                if (response.length() > 10) {
+//
+//                    Gson gson = new Gson();
+//
+//                    Sign resultLessonKc = gson.fromJson(response, new TypeToken<Sign>() {
+//                    }.getType());
+//
+//
+//                    if (resultLessonKc.getMessage().equals("未关注该课程")) {
+//                        collectImg.setImageResource(R.mipmap.collect_normal);
+//                        isFollow = false;
+//
+//                    } else {
+//                        collectImg.setImageResource(R.mipmap.collect_img);
+//                        isFollow = true;
+//                    }
+//
+////
+////                    list1=resultLessonKc.getData().getList();
+////                    adapter1=new KechengListAdapter(list1,getActivity());
+////                    listView1.setAdapter(adapter1);
+//
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // TODO Auto-generated method stub
+//                Toast.makeText(QuestionToVideoActivity.this, "网络请求失败1", Toast.LENGTH_SHORT).show();
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                // TODO Auto-generated method stub
+//                Map<String, String> map = new HashMap<String, String>();
+//                map.put("course_id", resultLessonKc.getData().getInfo().getImpower_id());//后期改成course_id
+//                if (ConstantSet.user != null) {
+//                    map.put("user_id", ConstantSet.user.getUid());
+//                }
+//                return map;
+//            }
+//        };
+//
+//        MyApplication.getRq().add(rq);
+//    }
 
     //关注
     public void guanzhu() {
@@ -1266,21 +1270,24 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
 
                 Log.i("Resopnse  ", response);
                 //showShortToast(response);
-                if (response.length() > 10) {
+                try {
 
                     Gson gson = new Gson();
 
                     WatchOnBean resultLessonKc = gson.fromJson(response, WatchOnBean.class);
+                    if (resultLessonKc.getStatus() == 1) {
+                        collectImg.setImageResource(R.mipmap.collect_img);
+                        isFollow = true;
 
-                    collectImg.setImageResource(R.mipmap.collect_img);
-                    isFollow = true;
 
-                    
-                    Toast.makeText(QuestionToVideoActivity.this,resultLessonKc.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QuestionToVideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
 
+                    }
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }
@@ -1323,22 +1330,28 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
 
                 Log.d("Resopnse  ", response);
                // showShortToast(response);
-                if (response.length() > 30) {
+                try {
 
                     Gson gson = new Gson();
 
 //                    Sign resultLessonKc = gson.fromJson(response, new TypeToken<Sign>() {
 //                    }.getType());
                     WatchOnBean resultLessonKc = gson.fromJson(response, WatchOnBean.class);
-                    isFollow = false;
+                    if (resultLessonKc.getStatus() == 1) {
 
-                    collectImg.setImageResource(R.mipmap.collect_normal);
 
-                    Toast.makeText(QuestionToVideoActivity.this,resultLessonKc.getMessage(),Toast.LENGTH_SHORT).show();
+                        isFollow = false;
+
+                        collectImg.setImageResource(R.mipmap.collect_normal);
+
+                        Toast.makeText(QuestionToVideoActivity.this, resultLessonKc.getMessage(), Toast.LENGTH_SHORT).show();
 //
+                    }
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }
@@ -1380,7 +1393,7 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
 
                 Log.d("Resopnse  ", response);
                // showShortToast(response);
-                if (response.length() > 30) {
+                try {
 
                     Gson gson = new Gson();
 
@@ -1396,6 +1409,8 @@ public class QuestionToVideoActivity extends BaseActivity implements SurfaceHold
 //                    list1=resultLessonKc.getData().getList();
 //                    adapter1=new KechengListAdapter(list1,getActivity());
 //                    listView1.setAdapter(adapter1);
+
+                }catch (Exception e){
 
                 }
             }

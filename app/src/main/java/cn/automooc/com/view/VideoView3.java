@@ -126,31 +126,32 @@ public class VideoView3 {
                 // TODO Auto-generated method stub
                 Log.i("TAG-Comment", response);
 
-                if (response.length() > 80) {
+                try {
 
                     Gson gson = new Gson();
 
 
                     ResultQuestion result = gson.fromJson(response, new TypeToken<ResultQuestion>() {
                     }.getType());
+                    if (result.getStatus().equalsIgnoreCase("1")) {
+                        lists.clear();
+                        lists.addAll(result.getData());
+                        if (adapter == null) {
+                            adapter = new VideoView3ListViewAdapter(lists, mContext);
 
-                    lists.clear();
-                    lists.addAll(result.getData());
-                    if(adapter==null) {
-                        adapter = new VideoView3ListViewAdapter(lists, mContext);
+                            listView.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
 
-                        listView.setAdapter(adapter);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) listView.getLayoutParams();
+
+                        params.height = (int) (lists.size() * ((120 * mContext.getResources().getDisplayMetrics().density) + 0.5f));
+                        listView.setLayoutParams(params);
+
                     }
-                    else
-                    {
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) listView.getLayoutParams();
-
-                    params.height=(int)(lists.size()*((120*mContext.getResources().getDisplayMetrics().density)+0.5f));
-                    listView.setLayoutParams(params);
-
+                }catch (Exception e){
 
                 }
             }

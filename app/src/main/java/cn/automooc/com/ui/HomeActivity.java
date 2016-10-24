@@ -399,7 +399,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
 
-                if(response.length()>10) {
+                try {
 
                    // Toast.makeText(HomeActivity.this,response,Toast.LENGTH_SHORT).show();
                     
@@ -407,10 +407,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
                     Gson gson = new Gson();
                     ResultUser confiMap=  gson.fromJson(response, new TypeToken<ResultUser>() {
                     }.getType());
-                    
-                    ConstantSet.user=confiMap.getData();
-                    ConstantSet.user.setAvatar(ConstantSet.user.getAvatar());
-                    SaveUser save=new SaveUser(HomeActivity.this);
+
+                    if (confiMap.getStatus().equalsIgnoreCase("1")) {
+
+                        ConstantSet.user = confiMap.getData();
+                        ConstantSet.user.setAvatar(ConstantSet.user.getAvatar());
+                        SaveUser save = new SaveUser(HomeActivity.this);
+                    }
+                }catch (Exception e){
+
                 }
             }
         }, new Response.ErrorListener(){
@@ -452,7 +457,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
 
-                if(response.length()>20) {
+                try {
                     
                     
                    // showShortToast(response);
@@ -460,8 +465,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
                     Gson gson = new Gson();
                    ResultMyClass result=  gson.fromJson(response, new TypeToken<ResultMyClass>() {
                     }.getType());
+                    if (result.getStatus().equalsIgnoreCase("1")) {
+                        ConstantSet.myClassList = result.getData();
+                    }
 
-                    ConstantSet.myClassList=result.getData();
+                }catch (Exception e){
 
                 }
             }
@@ -495,31 +503,30 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
 
-
-
-                // Toast.makeText(StartupActivity.this,response, Toast.LENGTH_SHORT).show();
-                System.out.print("response 12312 "+response+"    "+response.length());
-                if(response.length()>10) {
+                try {
 
                     //Toast.makeText(StartupActivity.this,response+"222",Toast.LENGTH_SHORT).show();
                     Gson gson = new Gson();
                     Sign resultUser = gson.fromJson(response, new TypeToken<Sign>() {
                     }.getType());
-                    SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    String str=formatter.format(new Date());
-                    if(resultUser.getData()!=null) {
-                        ConstantSet.jifen = resultUser.getData().getIntegral_value();
-                    }
+                    if (resultUser.getStatus() == 1) {
 
-                    if(resultUser.getMessage().equals("今天未签到")) {
-                        ConstantSet.sign = false;
-                        SignDialog dialog = new SignDialog(HomeActivity.this);
-                        Window window = dialog.getWindow();
-                        window.setGravity(Gravity.CENTER);
-                        dialog.setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
-                        dialog.show();
-                    }
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        String str = formatter.format(new Date());
+                        if (resultUser.getData() != null) {
+                            ConstantSet.jifen = resultUser.getData().getIntegral_value();
+                        }
 
+                        if (resultUser.getMessage().equals("今天未签到")) {
+                            ConstantSet.sign = false;
+                            SignDialog dialog = new SignDialog(HomeActivity.this);
+                            Window window = dialog.getWindow();
+                            window.setGravity(Gravity.CENTER);
+                            dialog.setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
+                            dialog.show();
+                        }
+                    }
+                }catch (Exception e){
 
                 }
             }

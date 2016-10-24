@@ -103,7 +103,7 @@ public class MyClassActivity extends AppCompatActivity {
                 System.out.print("response  " + response + "    " + response.length());
                 Log.i("TAG-MyCourse", response);
                 try {
-                    if (response.length() > 40) {
+
 
                         Gson gson = new Gson();
                         ResultMyClass resultUser = gson.fromJson(response, new TypeToken<ResultMyClass>() {
@@ -115,7 +115,6 @@ public class MyClassActivity extends AppCompatActivity {
                             adapter = new MyClassListViewAdapter(lists, MyClassActivity.this);
                             listView.setAdapter(adapter);
                         }
-                    }
 
                 }catch (Exception e){
 

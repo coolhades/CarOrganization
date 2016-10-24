@@ -88,16 +88,17 @@ public class MyQuestionActivity extends BaseActivity {
 //                System.out.print("response  "+response+"    "+response.length());
                 Log.i("MyQuestion", response);
                // showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     MyQuestion resultUser = gson.fromJson(response, new TypeToken< MyQuestion>() {
                     }.getType());
-
                     if (resultUser.getStatus().equals("1")) {
                         adapter=new MyQuestionListViewAdapter(resultUser.getData().getList(),MyQuestionActivity.this);
                         myQuestionListView.setAdapter(adapter);
                     }
+
+                }catch (Exception e){
 
                 }
 

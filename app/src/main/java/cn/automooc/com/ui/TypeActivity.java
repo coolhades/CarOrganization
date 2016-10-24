@@ -337,24 +337,28 @@ public class TypeActivity extends AppCompatActivity {
 
                 // System.out.print("response  "+response+"    "+response.length());
                 // Toast.makeText(TypeActivity.this,response+"",Toast.LENGTH_LONG).show();
-                if (response.length() > 50) {
+                try {
 
                     // listView.refreshComplete();
                     Gson gson = new Gson();
                     ResultSearchLesson result = gson.fromJson(response, new TypeToken<ResultSearchLesson>() {
                     }.getType());
-                    lists.clear();
-                    lists.addAll(result.getData().getList());
-                    if (adapter == null) {
+                    if (result.getStatus().equalsIgnoreCase("1")) {
+                        lists.clear();
+                        lists.addAll(result.getData().getList());
+                        if (adapter == null) {
 //                        dialog.colseDialog();
-                        adapter = new TypeListAdapter(TypeActivity.this, lists);
-                        listView.setAdapter(adapter);
+                            adapter = new TypeListAdapter(TypeActivity.this, lists);
+                            listView.setAdapter(adapter);
 
-                        listView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-                    } else {
-                        materialRefreshLayout.finishRefresh();
-                        adapter.notifyDataSetChanged();
+                            listView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+                        } else {
+                            materialRefreshLayout.finishRefresh();
+                            adapter.notifyDataSetChanged();
+                        }
                     }
+
+                }catch (Exception e){
 
                 }
 
@@ -401,16 +405,19 @@ public class TypeActivity extends AppCompatActivity {
 
                 // System.out.print("response  "+response+"    "+response.length());
                 //Toast.makeText(TypeActivity.this,response+"",Toast.LENGTH_LONG).show();
-                if (response.length() > 50) {
+                try {
 
                     Gson gson = new Gson();
                     ResultTypeBean result = gson.fromJson(response, new TypeToken<ResultTypeBean>() {
                     }.getType());
+                    if (result.getStatus().equalsIgnoreCase("1")) {
+                        dialogList.clear();
+                        dialogList.addAll(result.getData());
+                        dialogAdapter = new TypeDialogListAdapter(result.getData(), TypeActivity.this);
+                        dialogListView.setAdapter(dialogAdapter);
+                    }
+                }catch (Exception e){
 
-                    dialogList.clear();
-                    dialogList.addAll(result.getData());
-                    dialogAdapter = new TypeDialogListAdapter(result.getData(), TypeActivity.this);
-                    dialogListView.setAdapter(dialogAdapter);
                 }
 
             }

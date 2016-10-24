@@ -100,19 +100,20 @@ public class ChangePasswordActivity extends BaseActivity {
 
                 System.out.print("response  "+response+"    "+response.length());
                
-                if(response.length()>10) {
+                try {
 
                     Gson gson = new Gson();
                     Sign resultUser = gson.fromJson(response, new TypeToken<Sign>() {
                     }.getType());
 
                     if (resultUser.getStatus()==1) {
-                        ;
 
                         showShortToast("密码修改成功");
                         
                         ChangePasswordActivity.this.finish();
                     }
+                }catch (Exception e){
+
                 }
 
             }

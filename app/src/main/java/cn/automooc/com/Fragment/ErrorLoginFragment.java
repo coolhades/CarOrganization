@@ -174,7 +174,7 @@ public class ErrorLoginFragment extends BaseFragment {
 
                 System.out.print("response  "+response+"    "+response.length());
                 //showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     ResultUser resultUser = gson.fromJson(response, new TypeToken<ResultUser>() {
@@ -183,19 +183,20 @@ public class ErrorLoginFragment extends BaseFragment {
                     if (resultUser.getStatus().equals("1")) {
 
 
-                        SaveUser save=new SaveUser(getActivity());
-                        ConstantSet.user=resultUser.getData();
-                        save.saveData("userFile","user",resultUser.getData());
-                        Toast.makeText(getActivity(),resultUser.getData().getNickname(),Toast.LENGTH_SHORT).show();
-                        
+                        SaveUser save = new SaveUser(getActivity());
+                        ConstantSet.user = resultUser.getData();
+                        save.saveData("userFile", "user", resultUser.getData());
+                        Toast.makeText(getActivity(), resultUser.getData().getNickname(), Toast.LENGTH_SHORT).show();
+
                         getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
 
                         ((LoginAndRegisterActivity) getActivity()).finish();
+                    } else {
+                        showShortToast("账户或密码错误");
                     }
-                }
-                else
-                {
-                    showShortToast("账户或密码错误");
+
+                }catch (Exception e){
+
                 }
 
             }

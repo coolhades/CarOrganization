@@ -109,22 +109,22 @@ public class MyCollectActivity extends BaseActivity {
 
                 Log.i("TAG-MyCollesction", response);
               //  showShortToast(response);
-                if(response.length()>40) {
+
 
                     Gson gson = new Gson();
                     try {
                         ResultMycollect resultUser = gson.fromJson(response, new TypeToken<ResultMycollect>() {
                         }.getType());
+                        if (resultUser.getStatus().equalsIgnoreCase("1")) {
 
+                            lists = resultUser.getData();
+                            adapter = new MyCollectListViewAdapter(lists, MyCollectActivity.this);
 
-                        lists = resultUser.getData();
-                        adapter = new MyCollectListViewAdapter(lists, MyCollectActivity.this);
-
-                        myCollectlistView.setAdapter(adapter);
+                            myCollectlistView.setAdapter(adapter);
+                        }
                     }catch (Exception e){
 
                     }
-                }
 
             }
         }, new Response.ErrorListener(){

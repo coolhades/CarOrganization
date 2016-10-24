@@ -124,17 +124,19 @@ public class ExamineActivity extends BaseActivity {
                 Log.i("TAGTAG考试列表", response);
 //                Log.i("Course_id", ConstantSet.home_impower_id);
                 // showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     ResultMyExam resultUser = gson.fromJson(response, new TypeToken<ResultMyExam>() {
                     }.getType());
+                    if (resultUser.getStatus().equalsIgnoreCase("1")) {
 
+                        lists = resultUser.getData();
+                        adapter = new MyExamineListViewAdapter(resultUser.getData(), ExamineActivity.this);
+                        myExamineListView.setAdapter(adapter);
+                    }
+                }catch (Exception e){
 
-                    lists=resultUser.getData();
-                    adapter=new MyExamineListViewAdapter(resultUser.getData(),ExamineActivity.this);
-
-                    myExamineListView.setAdapter(adapter);
                 }
 
             }
@@ -177,18 +179,18 @@ public class ExamineActivity extends BaseActivity {
                 System.out.print("response  "+response+"    "+response.length());
                 Log.i("TAGTAG考试列表", response);
                // showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     ResultMyExam resultUser = gson.fromJson(response, new TypeToken<ResultMyExam>() {
                     }.getType());
+                    if (resultUser.getStatus().equalsIgnoreCase("1")) {
 
+                        lists = resultUser.getData();
+                        adapter = new MyExamineListViewAdapter(resultUser.getData(), ExamineActivity.this);
 
-                    lists=resultUser.getData();
-                    adapter=new MyExamineListViewAdapter(resultUser.getData(),ExamineActivity.this);
-
-                    myExamineListView.setAdapter(adapter);
-
+                        myExamineListView.setAdapter(adapter);
+                    }
 
 //                    GongGaoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                        @Override
@@ -210,6 +212,8 @@ public class ExamineActivity extends BaseActivity {
 //
 //                      
 //                    }
+                }catch (Exception e){
+
                 }
 
             }

@@ -173,7 +173,7 @@ public class LoginFragment extends BaseFragment {
 
                 System.out.print("response  "+response+"    "+response.length());
                 //showShortToast(response);
-                if(response.length()>40) {
+                try {
 
                     Gson gson = new Gson();
                     ResultUser resultUser = gson.fromJson(response, new TypeToken<ResultUser>() {
@@ -190,12 +190,14 @@ public class LoginFragment extends BaseFragment {
 //                        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
 
                         ((LoginAndRegisterActivity) getActivity()).finish();
+                    }else
+                    {
+                        showShortToast("账户或密码错误");
                     }
+                }catch (Exception e){
+
                 }
-                else
-                {
-                    showShortToast("账户或密码错误");
-                }
+
 
             }
         }, new Response.ErrorListener(){

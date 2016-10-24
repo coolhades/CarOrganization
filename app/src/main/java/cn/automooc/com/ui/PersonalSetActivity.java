@@ -55,39 +55,38 @@ public class PersonalSetActivity extends AppCompatActivity {
     ImageView headImg;
     String path;
     ImageView mBack;
-    
+
     LinearLayout headImgBar;
-    
+
     TextView bianjiBt;
-    
-    
+
+
     TextView sexBt;
     TextView ageBt;
     LinearLayout sexBar;
-    
+
     TextView nanBt;
     TextView nvBt;
 
     EditText nickName;
-    
+
     TextView phoneNumber;
     TimePickerView timePickerView;
 
-    
 
 //    private static final String IMAGE_FILE_LOCATION = "file:///sdcard/temp.jpg";//temp file
 
     private static final String IMAGE_FILE_LOCATION = "file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + "small.jpg";
 
     Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);//The Uri to store the big bitmap
-    
-    Handler handler=new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            
+
             ageBt.setText(msg.obj.toString());
-            
+
         }
     };
 
@@ -95,7 +94,7 @@ public class PersonalSetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_set);
-        
+
         initView();
         initData();
         initEvent();
@@ -103,24 +102,24 @@ public class PersonalSetActivity extends AppCompatActivity {
 
     private void initView() {
 
-        headImg= (ImageView) findViewById(R.id.head_img);
-        headImgBar= (LinearLayout) findViewById(R.id.head_ing_bar);
+        headImg = (ImageView) findViewById(R.id.head_img);
+        headImgBar = (LinearLayout) findViewById(R.id.head_ing_bar);
 
-        mBack= (ImageView) findViewById(R.id.back);
+        mBack = (ImageView) findViewById(R.id.back);
 
-        bianjiBt= (TextView) findViewById(R.id.bianji);
-        
-        sexBt= (TextView) findViewById(R.id.sex_bt);
-        ageBt= (TextView) findViewById(R.id.age_bt);
+        bianjiBt = (TextView) findViewById(R.id.bianji);
 
-        sexBar= (LinearLayout) findViewById(R.id.sex_bar);
-        
-        nanBt= (TextView) findViewById(R.id.nan_bt);
-        nvBt= (TextView) findViewById(R.id.nv_bt);
+        sexBt = (TextView) findViewById(R.id.sex_bt);
+        ageBt = (TextView) findViewById(R.id.age_bt);
 
-        nickName= (EditText) findViewById(R.id.nick_name);
+        sexBar = (LinearLayout) findViewById(R.id.sex_bar);
 
-        phoneNumber= (TextView) findViewById(R.id.phone_number);
+        nanBt = (TextView) findViewById(R.id.nan_bt);
+        nvBt = (TextView) findViewById(R.id.nv_bt);
+
+        nickName = (EditText) findViewById(R.id.nick_name);
+
+        phoneNumber = (TextView) findViewById(R.id.phone_number);
         //时间选择器
         timePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         //控制时间范围
@@ -139,7 +138,7 @@ public class PersonalSetActivity extends AppCompatActivity {
 
 
     private void initEvent() {
-        
+
 
         headImgBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,13 +151,13 @@ public class PersonalSetActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 PersonalSetActivity.this.finish();
-                
+
             }
         });
-        
-        
+
+
         sexBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,8 +183,8 @@ public class PersonalSetActivity extends AppCompatActivity {
                 }).show();
             }
         });
-        
-        
+
+
         ageBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,21 +197,21 @@ public class PersonalSetActivity extends AppCompatActivity {
 //                window.setGravity(Gravity.BOTTOM);
 //                dialog.setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
 //                dialog.show();
-                
+
             }
         });
-        
-        
+
+
         nanBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 sexBar.setVisibility(View.GONE);
                 sexBt.setText("男");
             }
         });
-        
-        
+
+
         nvBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,12 +220,12 @@ public class PersonalSetActivity extends AppCompatActivity {
             }
         });
 
-        
+
         bianjiBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getData();
-                
+
             }
         });
 
@@ -249,14 +248,13 @@ public class PersonalSetActivity extends AppCompatActivity {
 
     protected void getImageFromAlbum() {
 //        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
 
 //        intent.setType("image/*");// 相片类型
         startActivityForResult(intent, 2);
     }
-
 
 
     @Override
@@ -265,45 +263,45 @@ public class PersonalSetActivity extends AppCompatActivity {
         //有些手机返回的是file 不是content
         if (requestCode == 2) {
             Object object = null;
-            if (imageUri == null||data==null) {
+            if (imageUri == null || data == null) {
                 return;
             } else {
                 try {
 //                    Bitmap imageBitmap = BitmapFactory.decodeFile(data.getData().getPath());
 //                    Log.i("TAGTAGTAG", "uri=" + getImageContentUri(PersonalSetActivity.this, new File(data.getData().getPath())) );
-                    if (data.getData().toString().contains("file://")){
+                    if (data.getData().toString().contains("file://")) {
                         //部分手机 返回的是file文件
 //                        Uri uri = getImageContentUri(PersonalSetActivity.this, new File(data.getData().getPath()));
-                        startCropIntent(data.getData().getPath() );
-                    }else {
+                        startCropIntent(data.getData().getPath());
+                    } else {
                         Uri uri = data.getData();
                         Uri fileUri = converUri(uri);
                         startImageZoom(fileUri);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(PersonalSetActivity.this, "出错了！", Toast.LENGTH_SHORT).show();
                 }
             }
 
         } else if (requestCode == 3) {
-            if (imageUri == null||data==null) {
+            if (imageUri == null || data == null) {
                 return;
             }
 
 				/*Bundle temp = data.getExtras();
-				if (null == temp) {
+                if (null == temp) {
 					return;
 				}
 				Bitmap bitmap = temp.getParcelable("data");*/
 
             Bitmap bitmap = decodeUriAsBitmap(imageUri);//decode bitmap
-            
+
             headImg.setImageBitmap(bitmap);
-            
+
             //头像上传
-            
-            LoadImgUtils.reg(PersonalSetActivity.this,bitmap);
-            
+
+            LoadImgUtils.reg(PersonalSetActivity.this, bitmap);
+
         }
 
 
@@ -339,7 +337,7 @@ public class PersonalSetActivity extends AppCompatActivity {
         intent.putExtra("aspectY", 1);
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
-        intent.putExtra("return-data",false);
+        intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, 3);
     }
@@ -350,7 +348,7 @@ public class PersonalSetActivity extends AppCompatActivity {
         try {
             is = getContentResolver().openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
-           is.close();
+            is.close();
 
             return Uri.fromFile(getFile(bitmap));
         } catch (FileNotFoundException e) {
@@ -375,7 +373,7 @@ public class PersonalSetActivity extends AppCompatActivity {
             temp.mkdir();
         }
 
-        path=temp.getAbsolutePath() +"/"+System.currentTimeMillis()+"jietu.jpeg";
+        path = temp.getAbsolutePath() + "/" + System.currentTimeMillis() + "jietu.jpeg";
         File image = new File(path);
 
         try {
@@ -400,9 +398,9 @@ public class PersonalSetActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * Gets the content:// URI  from the given corresponding path to a file
+     *
      * @param context
      * @param imageFile
      * @return content Uri
@@ -411,9 +409,9 @@ public class PersonalSetActivity extends AppCompatActivity {
         String filePath = imageFile.getAbsolutePath();
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                new String[] { MediaStore.Images.Media._ID },
+                new String[]{MediaStore.Images.Media._ID},
                 MediaStore.Images.Media.DATA + "=? ",
-                new String[] { filePath }, null);
+                new String[]{filePath}, null);
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor
                     .getColumnIndex(MediaStore.MediaColumns._ID));
@@ -431,11 +429,10 @@ public class PersonalSetActivity extends AppCompatActivity {
         }
     }
 
-    private Bitmap decodeUriAsBitmap(Uri uri){
+    private Bitmap decodeUriAsBitmap(Uri uri) {
         Bitmap bitmap = null;
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-
 
 
             /**
@@ -453,52 +450,50 @@ public class PersonalSetActivity extends AppCompatActivity {
     }
 
 
-    public void getData()
-    {
-        StringRequest rq=new StringRequest(Request.Method.POST, ConstantSet.homeAddress+"user/edituserinfo?", new Response.Listener<String>() {
+    public void getData() {
+        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/edituserinfo?", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
+                try {
 
-              //  System.out.print("response  "+response+"    "+response.length());
-              //  Toast.makeText(PersonalSetActivity.this,response+"",Toast.LENGTH_LONG).show();
-                if(response.length()>40) {
-
-                    Toast.makeText(PersonalSetActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PersonalSetActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     Gson gson = new Gson();
                     ResultUser resultUser = gson.fromJson(response, new TypeToken<ResultUser>() {
                     }.getType());
-                    
+
+                } catch (Exception e) {
+
                 }
             }
-        }, new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
                 Toast.makeText(PersonalSetActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
 
-            }}){
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // TODO Auto-generated method stub
-                Map<String,String> map=new HashMap<String, String>();
-                map.put("obj_type","edituserinfo");
-                if(ConstantSet.user!=null) {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("obj_type", "edituserinfo");
+                if (ConstantSet.user != null) {
                     map.put("obj_id", ConstantSet.user.getUid());
                 }
-                map.put("nick_name",nickName.getText().toString());
-                if(sexBt.getText().toString().equals("男")) {
+                map.put("nick_name", nickName.getText().toString());
+                if (sexBt.getText().toString().equals("男")) {
                     map.put("sex", "1");
-                }
-                else{
+                } else {
                     map.put("sex", "0");
                 }
 
-                map.put("birthday",ageBt.getText().toString());
-                
-                map.put("okey", Md5Utils.md5("moocuseredituserinfo"+"edituserinfo"+ConstantSet.user.getUid()));
+                map.put("birthday", ageBt.getText().toString());
+
+                map.put("okey", Md5Utils.md5("moocuseredituserinfo" + "edituserinfo" + ConstantSet.user.getUid()));
 
                 return map;
             }
@@ -508,61 +503,61 @@ public class PersonalSetActivity extends AppCompatActivity {
     }
 
 
-
-    public void getDataPersoninfo()
-    {
-        StringRequest rq=new StringRequest(Request.Method.POST, ConstantSet.homeAddress+"/user/getuserinfo?", new Response.Listener<String>() {
+    public void getDataPersoninfo() {
+        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "/user/getuserinfo?", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 // TODO Auto-generated method stub
 
-                //  System.out.print("response  "+response+"    "+response.length());
-               // Toast.makeText(PersonalSetActivity.this,response+"",Toast.LENGTH_LONG).show();
-                if(response.length()>30) {
+                try {
                     Log.i("TAG-response", response);
                     Gson gson = new Gson();
                     ResultPersoninfo result = gson.fromJson(response, new TypeToken<ResultPersoninfo>() {
                     }.getType());
 
-                    if(ConstantSet.user.getAvatar()!=null&&ConstantSet.user.getAvatar()!="")
-                    {
-                        LoadImgUtils.setImage(PersonalSetActivity.this, ConstantSet.user.getAvatar(), headImg);
-                    }else {
-                        LoadImgUtils.setImage(PersonalSetActivity.this, result.getData().getAvatar(), headImg);
-                    }
-                    nickName.setText(result.getData().getNickname());
-                    
-                    
-                    phoneNumber.setText(result.getData().getPhone());
+                    if (result.getStatus().equalsIgnoreCase("1")) {
 
-                    if(result.getData().getSex()!=null) {
-                        if (result.getData().getSex().equals("1")) {
-                            sexBt.setText("男");
+                        if (ConstantSet.user.getAvatar() != null && ConstantSet.user.getAvatar() != "") {
+                            LoadImgUtils.setImage(PersonalSetActivity.this, ConstantSet.user.getAvatar(), headImg);
                         } else {
-                            sexBt.setText("女");
+                            LoadImgUtils.setImage(PersonalSetActivity.this, result.getData().getAvatar(), headImg);
                         }
+                        nickName.setText(result.getData().getNickname());
+
+
+                        phoneNumber.setText(result.getData().getPhone());
+
+                        if (result.getData().getSex() != null) {
+                            if (result.getData().getSex().equals("1")) {
+                                sexBt.setText("男");
+                            } else {
+                                sexBt.setText("女");
+                            }
+                        }
+                        ageBt.setText(result.getData().getBirthday());
+
                     }
-                    ageBt.setText(result.getData().getBirthday());
-                    
-                    
-                    
+
+                } catch (Exception e) {
+
                 }
             }
-        }, new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
                 Toast.makeText(PersonalSetActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
 
-            }}){
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // TODO Auto-generated method stub
-                Map<String,String> map=new HashMap<String, String>();
-                map.put("obj_type","edituserinfo");
-                if(ConstantSet.user!=null) {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("obj_type", "edituserinfo");
+                if (ConstantSet.user != null) {
                     map.put("user_id", ConstantSet.user.getUid());
                 }
 

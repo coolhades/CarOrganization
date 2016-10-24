@@ -510,7 +510,7 @@ public class MyselfFragment extends BaseFragment {
                 // TODO Auto-generated method stub
 
                 // showShortToast("me  " + response);
-                if (response.length() > 80) {
+                try {
 
                     Gson gson = new Gson();
 
@@ -530,6 +530,8 @@ public class MyselfFragment extends BaseFragment {
                     myQuestionText.setText(result.getData().getNum_question());
                     //   myDownloadText.setText(result.getData().getNum_download());
 
+
+                }catch (Exception e){
 
                 }
             }
@@ -603,19 +605,19 @@ public class MyselfFragment extends BaseFragment {
 
                 System.out.print("response  "+response+"    "+(new Date()).getTime()+""+response.length());
                 Log.i("TAGTAG", response);
-                if(response.length()>20) {
+                try {
 
-                    Toast.makeText(getActivity(),"签到成功",Toast.LENGTH_SHORT).show();
-                    sign_in.setImageResource(R.mipmap.attand);
                     Gson gson = new Gson();
                     Sign resultUser = gson.fromJson(response, new TypeToken<Sign>() {
                     }.getType());
                     //Toast.makeText(StartupActivity.this,response+"222",Toast.LENGTH_SHORT).show();
-
-
                     if(resultUser.getStatus()==1) {
+                        Toast.makeText(getActivity(),"签到成功",Toast.LENGTH_SHORT).show();
+                        sign_in.setImageResource(R.mipmap.attand);
                         ConstantSet.sign = true;
                     }
+                }catch (Exception e){
+
                 }
             }
         }, new Response.ErrorListener(){
@@ -655,25 +657,31 @@ public class MyselfFragment extends BaseFragment {
 
                 // Toast.makeText(StartupActivity.this,response, Toast.LENGTH_SHORT).show();
                 System.out.print("response 12312 "+response+"    "+response.length());
-                if(response.length()>10) {
+                try {
 
                     //Toast.makeText(StartupActivity.this,response+"222",Toast.LENGTH_SHORT).show();
                     Gson gson = new Gson();
                     Sign resultUser = gson.fromJson(response, new TypeToken<Sign>() {
                     }.getType());
-                    SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    String str=formatter.format(new Date());
-                    if(resultUser.getData()!=null) {
-                        ConstantSet.jifen = resultUser.getData().getIntegral_value();
+                    if (resultUser.getStatus() == 1) {
+
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        String str = formatter.format(new Date());
+                        if (resultUser.getData() != null) {
+                            ConstantSet.jifen = resultUser.getData().getIntegral_value();
+                        }
+
+                        if (resultUser.getMessage().equals("今天未签到")) {
+                            ConstantSet.sign = false;
+                            sign_in.setImageResource(R.mipmap.attandnot);
+                        } else {
+                            sign_in.setImageResource(R.mipmap.attand);
+                        }
+
                     }
 
-                    if(resultUser.getMessage().equals("今天未签到")) {
-                        ConstantSet.sign = false;
-                        sign_in.setImageResource(R.mipmap.attandnot);
-                    }else {
-                        sign_in.setImageResource(R.mipmap.attand);
-                    }
 
+                }catch (Exception e){
 
                 }
             }
