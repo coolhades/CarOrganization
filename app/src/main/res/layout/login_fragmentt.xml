@@ -11,8 +11,8 @@
         android:orientation="horizontal">
         
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -25,7 +25,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/input_bg"
             android:layout_height="wrap_content"
-            android:hint="请输入邮箱"
+            android:hint="手机号登录"
             android:textColor="#333333"
             android:textColorHint="#AFAFAF"/>
 
@@ -46,8 +46,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -87,6 +87,7 @@
         android:layout_margin="30dp"
         android:textSize="15sp"
         android:gravity="center"
+        android:textColor="@color/text_color"
         android:text="立即登录"/>
     
         
@@ -129,7 +130,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="30dp"
         android:layout_marginTop="30dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <ImageView

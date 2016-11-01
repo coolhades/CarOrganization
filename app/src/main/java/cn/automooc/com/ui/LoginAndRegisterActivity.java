@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.automooc.com.BaseActivity;
+import cn.automooc.com.Fragment.LoginFragment;
 import cn.automooc.com.R;
-import cn.automooc.com.views.view.fragment.MyLoginFragment;
-import cn.automooc.com.views.view.fragment.MyResigterFragment;
 import cn.automooc.com.utils.ConstantSet;
 import cn.automooc.com.utils.Md5Utils;
 import cn.automooc.com.utils.SaveUser;
+import cn.automooc.com.views.view.fragment.NewResigterFragment;
 
 public class LoginAndRegisterActivity extends BaseActivity {
 
@@ -22,8 +22,12 @@ public class LoginAndRegisterActivity extends BaseActivity {
     FragmentManager manager;
     FragmentTransaction transaction;
 
-    MyLoginFragment loginFragment;
-    MyResigterFragment resigterFragment;
+//    MyLoginFragment loginFragment;
+//    MyResigterFragment resigterFragment;
+
+    LoginFragment loginFragment;
+//    ResigterFragment resigterFragment;
+    NewResigterFragment resigterFragment;
 
     TextView loginBt;
     TextView registerBt;
@@ -66,8 +70,13 @@ public class LoginAndRegisterActivity extends BaseActivity {
         registerBt = (TextView) findViewById(R.id.register_bt);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        loginFragment = new MyLoginFragment();
-        resigterFragment = new MyResigterFragment();
+//        loginFragment = new MyLoginFragment();
+//        resigterFragment = new MyResigterFragment();
+
+        loginFragment = new LoginFragment();
+//        resigterFragment = new ResigterFragment();
+        resigterFragment = new NewResigterFragment();
+
         transaction.replace(R.id.fragment_layout, loginFragment).commit();
         back= (ImageView) findViewById(R.id.back);
 

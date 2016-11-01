@@ -9,4 +9,8 @@
     <color name="textColor">#000000</color>
     <color name="textColorHint">#969696</color>
     <color name="momeyColor">#FF3C00</color>
+
+    <color name="text_color_hint">#CECFD3</color>
+    <color name="text_color">#ffffff</color>
+    <color name="btn_background">#333333</color>
 </resources>

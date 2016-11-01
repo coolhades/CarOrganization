@@ -7,5 +7,6 @@ package cn.automooc.com.presenter;
 
 public interface ILoginPresenter {
     void Login(final String account, final String passwd);
-    void Register(final String account, final String passwd);
+    void Register(final String account, final String passwd, final String vcode);
+    void FetchCode(final String mobile);
 }

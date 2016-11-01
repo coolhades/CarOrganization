@@ -11,8 +11,8 @@
         android:orientation="horizontal">
         
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
             android:layout_height="wrap_content"
-            android:hint="请输入邮箱"
+            android:hint="请输入手机号"
             android:background="@drawable/input_bg"
             android:textColor="#333333"
             android:textColorHint="#AFAFAF"
@@ -33,54 +33,7 @@
         
     </LinearLayout>
 
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#E6E6E6"/>
-    <LinearLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <EditText
-            android:layout_marginLeft="30dp"
-            android:id="@+id/input_code"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/input_bg"
-            android:layout_height="wrap_content"
-            android:hint="请输入验证码"
-            android:textColor="#333333"
-            android:textColorHint="#AFAFAF"/>
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/code_iv"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/zhanghao_img"/>
-
-        <Button
-            android:id="@+id/change_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="换一张"
-            android:layout_marginRight="8dp"
-            android:layout_gravity="center_vertical"
-            />
-
-        <!-- android:background="@drawable/input_bg"-->
-
-    </LinearLayout>
     <View
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -138,8 +91,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -153,6 +106,7 @@
             android:background="@drawable/input_bg"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
+            android:inputType="textPassword"
             android:textColor="#333333"
             android:textColorHint="#AFAFAF"
             android:layout_gravity="center_vertical"
@@ -176,14 +130,14 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:src="@mipmap/password_img"/>
 
-        <EditText 
+        <EditText
             android:id="@+id/input_password2"
             android:layout_width="0dp"
             android:paddingLeft="20dp"
@@ -191,10 +145,70 @@
             android:layout_height="wrap_content"
             android:hint="请确认密码"
             android:textColor="#333333"
+            android:inputType="textPassword"
             android:textColorHint="#AFAFAF"
             android:layout_gravity="center_vertical"
             android:background="@drawable/input_bg"/>
 
+
+    </LinearLayout>
+
+    <View
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="#E6E6E6"/>
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/messagecode"/>
+        <EditText
+            android:id="@+id/input_code"
+            android:layout_width="0dp"
+            android:paddingLeft="20dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:hint="请输入验证码"
+            android:textColor="#333333"
+            android:textColorHint="#AFAFAF"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/input_bg"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/fetch_code"
+            android:layout_marginEnd="28dp"
+            android:text="获取验证码"
+            android:background="@drawable/button_bg"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/change_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="换一张"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <!-- android:background="@drawable/input_bg"-->
 
     </LinearLayout>
     
@@ -212,6 +226,7 @@
         android:layout_height="50dp"
         android:background="@drawable/login_bg"
         android:layout_margin="30dp"
+        android:textColor="@color/text_color"
         android:textSize="15sp"
         android:gravity="center"
         android:text="注册"/>

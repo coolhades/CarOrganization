@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hades.libam.net.RootRequest;
+import com.hades.libam.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +21,12 @@ import cn.automooc.com.api.LoginApi;
 import cn.automooc.com.application.MyApplication;
 import cn.automooc.com.bean.ResultUser;
 import cn.automooc.com.bean.User;
+import cn.automooc.com.bean.VCode;
 import cn.automooc.com.model.ISaveUserData;
 import cn.automooc.com.model.SaveUserDataModel;
 import cn.automooc.com.utils.ConstantSet;
 import cn.automooc.com.utils.Md5Utils;
+import cn.automooc.com.utils.SaveUser;
 import cn.automooc.com.views.viewinterface.IOnLogin;
 
 /**
@@ -55,8 +58,13 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void Register(String account, String passwd) {
-        resigterUser(account, passwd);
+    public void Register(String account, String passwd, String vcode) {
+        resigterUser(account, passwd, vcode);
+    }
+
+    @Override
+    public void FetchCode(String mobile) {
+        fetchCode(mobile);
     }
 
 
@@ -138,7 +146,7 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     //注册
-    private void resigterUser(final String account, final String passwd) {
+    private void resigterUser(final String account, final String passwd, final String vcode) {
         StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "user/register?", new Response.Listener<String>() {
 
             @Override
@@ -151,9 +159,12 @@ public class LoginPresenter implements ILoginPresenter {
                     }.getType());
 
                     if (resultUser.getStatus().equalsIgnoreCase("1")) {
-                        IOnLogin.OnResigterSuccess("注册成功");
+                        IOnLogin.OnResigterSuccess(resultUser.getMessage());
+                        SaveUser save=new SaveUser(mContext);
+                        ConstantSet.user=resultUser.getData();
+                        save.saveData("userFile","user",resultUser.getData());
                     } else {
-                        IOnLogin.OnLoginFailed("此账户已存在");
+                        IOnLogin.OnLoginFailed(resultUser.getMessage());
 //                    showShortToast("此账户已存在");
                     }
 
@@ -178,7 +189,56 @@ public class LoginPresenter implements ILoginPresenter {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("account", account);
                 map.put("passwd", passwd);
+                map.put("ver", "161025");
+                map.put("vcode", vcode);
                 map.put("okey", Md5Utils.md5("moocuserregister" + account + passwd));
+
+                return map;
+            }
+        };
+
+        MyApplication.getRq().add(rq);
+    }
+
+    private void fetchCode(final String mobile){
+        StringRequest rq = new StringRequest(Request.Method.POST, ConstantSet.homeAddress + "main/sendcode?", new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                // TODO Auto-generated method stub
+                Log.d("TAG-Register-Code", response);
+                try {
+                    Gson gson = new Gson();
+                    VCode code = gson.fromJson(response, VCode.class);
+                    if (code.getStatus() == 1){
+                        IOnLogin.OnLoginSuccess(code.getMessage());
+                    }else {
+                        IOnLogin.OnLoginFailed(code.getMessage());
+                    }
+                } catch (Exception e) {
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO Auto-generated method stub
+                Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // TODO Auto-generated method stub
+                Map<String, String> map = new HashMap<String, String>();
+                if (mobile.isEmpty()){
+                    ToastUtils.showTextToast("网络请求失败", mContext);
+                    return map;
+                }
+                map.put("mobile", mobile);
+                map.put("okey", Md5Utils.md5("moocmainsendcode"+mobile));
 
                 return map;
             }

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import cn.automooc.com.BaseActivity;
 import cn.automooc.com.Fragment.ErrorLoginFragment;
-import cn.automooc.com.Fragment.ResigterFragment;
 import cn.automooc.com.R;
+import cn.automooc.com.views.view.fragment.NewResigterFragment;
 
 public class ErrorLoginActivity extends BaseActivity {
 
@@ -20,7 +20,8 @@ public class ErrorLoginActivity extends BaseActivity {
     FragmentTransaction transaction;
 
     ErrorLoginFragment loginFragment;
-    ResigterFragment resigterFragment;
+//    ResigterFragment resigterFragment;
+    NewResigterFragment resigterFragment;
 
     TextView loginBt;
     //TextView registerBt;
@@ -68,8 +69,8 @@ public class ErrorLoginActivity extends BaseActivity {
         transaction = manager.beginTransaction();
 
         loginFragment = new ErrorLoginFragment();
-        resigterFragment = new ResigterFragment();
-
+//        resigterFragment = new ResigterFragment();
+        resigterFragment = new NewResigterFragment();
         transaction.replace(R.id.fragment_layout, loginFragment).commit();
         
         back= (ImageView) findViewById(R.id.back);

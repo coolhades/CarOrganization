@@ -171,7 +171,7 @@ public class MyResigterFragment extends BaseFragment implements IOnLogin {
                         showShortToast("请稍等");
 
 //                        resigterUser(inputEmail.getText().toString(),inputPassword1.getText().toString());
-                        registerInterface.Register(inputEmail.getText().toString(), inputPassword1.getText().toString());
+//                        registerInterface.Register(inputEmail.getText().toString(), inputPassword1.getText().toString());
 
                     }
 
